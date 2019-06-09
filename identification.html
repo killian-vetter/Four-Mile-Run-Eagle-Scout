@@ -12,8 +12,10 @@
                 name = urlParams.get('name');
             }
 
-            function disName(){
+            function load(){
                 document.getElementById('name').innerHTML = "Logged in as: <b>"+name+"</b>";
+
+                document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\">"
             }
 
             function vote() {
@@ -51,7 +53,7 @@
             window.addEventListener('blur', blur);
         </script>
     </head>
-    <body onload="disName()">
+    <body onload="load()">
         <h1 style="top:0px;position:fixed;">What animal is in the picture below?</h1> <br><br>
         <div id = 'img'></div>
         <br><br>
