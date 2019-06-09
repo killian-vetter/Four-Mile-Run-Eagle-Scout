@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Identify The Animals</title>
+        <script>
+            var urlParams = new URLSearchParams(location.search);
+            if (urlParams.has('image') && urlParams.has('name')) {
+                console.out("nothign");
+                var image = urlParams.get('image');
+                var name = urlParams.get('name');
+            }
+
+            function vote() {
+                /*
+                passes photo, vote, name, and time to the lambda function
+                returns the next pic which will then be passed to the next page using url parameters
+
+                lambda function:
+                    will change photo (probably by just getting the next photo) then store that photo's id
+                    add elapsed time to current elapsed time in database
+                    store vote with picture
+                */
+               return 42;
+            }
+
+            // track time on page
+            var startDate = new Date();
+            var elapsedTime = 0;
+
+            const focus = function() {
+                startDate = new Date();
+            };
+
+            const blur = function() {
+                const endDate = new Date();
+                const spentTime = endDate.getTime() - startDate.getTime();
+                elapsedTime += spentTime;
+            };
+
+            const beforeunload = function() {
+                const endDate = new Date();
+                const spentTime = endDate.getTime() - startDate.getTime();
+                elapsedTime += spentTime;
+                // elapsedTime contains the time spent on page in milliseconds
+            };
+
+            window.addEventListener('focus', focus);
+            window.addEventListener('blur', blur);
+            window.addEventListener('beforeunload', beforeunload);
+        </script>
+    </head>
+    <body onload="load()">
+        <h1 class='Title'>What animal is in the picture below?</h1>
+        <div id = 'img'></div>
+        <div id = 'form'>
+            <form>
+                <input type = 'checkbox' name = 'animal' id = 'unsure' value = 'Unsure'>
+                <label for='unsure'>Unsure</label>
+            </form>
+        </div>
+    </body>
+</html>
