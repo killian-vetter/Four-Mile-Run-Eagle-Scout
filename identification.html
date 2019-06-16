@@ -10,7 +10,7 @@
                 IdentityPoolId: 'us-east-1:03dd8b12-9e10-484c-83ca-bfe0d55e16c3',
             });
             var lambda = new AWS.Lambda({region: 'us-east-1', apiVersion: '2015-03-31'});
-            
+
             var urlParams = new URLSearchParams(location.search);
             var name = "";
             var image = "";
@@ -54,7 +54,7 @@
                         console.log(error);
                     }
                     else {
-                        window.location = "identification.html?name="+data['name']+"&image="+data['image'];
+                        window.location = "identification.html?name="+name+"&image="+data['image'];
                     }
                 }); 
             }
