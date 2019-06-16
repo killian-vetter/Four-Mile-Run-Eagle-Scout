@@ -3,25 +3,42 @@
     <head>
         <title>Identify The Animals</title>
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
         <script>
+            AWS.config.region = 'us-east-1'; // Region
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:03dd8b12-9e10-484c-83ca-bfe0d55e16c3',
+            });
+            var lambda = new AWS.Lambda({region: 'us-east-1', apiVersion: '2015-03-31'});
+            
             var urlParams = new URLSearchParams(location.search);
             var name = "";
-            var image = ""
+            var image = "";
             if (urlParams.has('image') && urlParams.has('name')) {
                 image = urlParams.get('image');
                 name = urlParams.get('name');
+            }
+            else {
+                window.location = "login.html";
             }
 
             function load(){
                 document.getElementById('name').innerHTML = "Logged in as: <b>"+name+"</b>";
 
-                document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\">"
+                document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\">";
             }
 
             function vote() {
                 const endDate = new Date();
                 const spentTime = endDate.getTime() - startDate.getTime();
                 elapsedTime += spentTime;
+                var votes; 
+                var params = {
+                    'FunctionName' : 'id',
+                    'name' : name,
+                    'votes' : votes,
+                    'time' : elapsedTime
+                };
                 /*
                 passes photo, vote, name, and time to the lambda function
                 returns the next pic which will then be passed to the next page using url parameters
@@ -31,8 +48,15 @@
                     add elapsed time to current elapsed time in database
                     store vote with picture
                 */
-               
-               window.location = "C:\Users\Killian Vetter\Documents\Four Mile Run Eagle Scout\identification.html?name="+name+"&image="+image;
+                lambda.invoke(params, function(err, data) {
+                    if (err) {
+                        window.alert("An error has occured please try again");
+                        console.log(error);
+                    }
+                    else {
+                        window.location = "identification.html?name="+data['name']+"&image="+data['image'];
+                    }
+                }); 
             }
 
             // track time on page
@@ -86,7 +110,9 @@
             </form>
         </div>
         <br><br><br>
-        <a href='thanks.html'><button>I'm Done</button></a>
-        <p id='name'></p>
+        <div id='header'>
+            <a href='thanks.html'><button>I'm Done</button></a>
+            <p id='name'></p>
+        </div>
     </body>
 </html>

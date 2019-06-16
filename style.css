@@ -1,4 +1,4 @@
-#name {
+#header {
     position: fixed;
     top: 0px;
     right:15px;
@@ -14,4 +14,9 @@
 td {
     padding-right: 50px;
     padding-top: 20px;
+}
+
+img {
+    height: 456px;
+
 }
