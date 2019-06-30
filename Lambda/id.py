@@ -18,12 +18,33 @@ def lambda_handler(event, context):
     if (picInfo is None):
         return item['Item']['Cam']['N']+"/"+picName(item['Item']['PicNo']['N'],len(item['Item']['PicNo']['N']))
     cam = picInfo['cam']
-    picNo = picInfo['picNo']+1
-    if(picNo > int(noPics[cam-1])):
-        picNo = 1
-    client.update_item(
-        TableName = 'Man-Hours',
+    picNo = picInfo['picNo']
+    picVotes = client.get_item(
+        TableName = 'PictureInfo',
         Key = {
+            'PicNo' : {'N' : str(picNo)},
+            'Cam' : {'N' : str(cam)}
+        }
+    )
+    newItem = {
+        'PicNo' : {'N' : str(picNo)},
+        'Cam' : {'N' : str(cam)}
+    }
+    for vote in event['votes']:
+        try: 
+            newItem[vote] = { 'N' : str(1 + int(picVotes['Item'][vote]['N'])) }
+        except:
+            newItem[vote] = { 'N' : '1' } 
+    client.put_item(
+        TableName = "PictureInfo",
+        Item = newItem
+    )
+    picNo += 1
+    if (picNo > int(noPics[cam-1])):
+        picNo = 1
+    client.put_item(
+        TableName = 'Man-Hours',
+        Item = {
             "Name" : {
                 'S' : event['name']
             },
@@ -32,31 +53,13 @@ def lambda_handler(event, context):
             },
             "PicNo" : {
                 'N' : str(picNo)
+            },
+            "Cam" : {
+                'N' : str(cam)
             }
         }
     )
     pic = str(cam) + "/" + picName(picNo, len(str(picNo)))
-    pictureInfo = client.get_item(
-        TableName='PictureInfo',
-        Key={
-            'Name' : {'S' : pic},
-            'Cam' : {'N' : str(cam)}
-        }
-    )
-    for vote in event['votes']:
-        try:
-            num  = int(pictureInfo['Item'][vote]['N']) + 1
-        except:
-            num = 1
-        finally:
-            client.update_item(
-                TableName='PictureInfo',
-                Key={
-                    'Name' : {'S' : pic},
-                    'Cam' : {'N' : str(cam)},
-                    vote : {'N' : str(num)}
-                }
-            )
     response['image'] = pic
     return response
 
