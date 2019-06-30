@@ -29,11 +29,22 @@
             }
 
             function vote() {
+                voteOptions = [
+                    "deer",
+                    "fox",
+                    "nothing",
+                    "unsure"
+                ];
                 const endDate = new Date();
                 const spentTime = endDate.getTime() - startDate.getTime();
                 elapsedTime += spentTime;
                 elapsedTime /= 1000;
-                var votes; 
+                var votes = []; 
+                for (i = 0; i<voteOptions.length; i++){
+                    if (document.getElementById(voteOptions[i]).checked) {
+                        votes.push(voteOptions[i]);
+                    }
+                }
                 var params = {
                     'FunctionName' : 'id',
                     'name' : name,
@@ -108,7 +119,7 @@
                     </tr>
                 </table>
                 <br>
-                <input type='submit' value="Submit">
+                <button onclick='vote()'>Submit</button>
             </form>
         </div>
         <br><br><br>
