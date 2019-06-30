@@ -25,13 +25,14 @@
             function load(){
                 document.getElementById('name').innerHTML = "Logged in as: <b>"+name+"</b>";
 
-                document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\">";
+                document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\" class = \"animal\">";
             }
 
             function vote() {
                 const endDate = new Date();
                 const spentTime = endDate.getTime() - startDate.getTime();
                 elapsedTime += spentTime;
+                elapsedTime /= 1000;
                 var votes; 
                 var params = {
                     'FunctionName' : 'id',
@@ -79,9 +80,9 @@
         </script>
     </head>
     <body onload="load()">
-        <h1 style="top:0px;position:fixed;">What animal is in the picture below?</h1> <br><br>
+        <h1>What animal is in the picture below?</h1>
         <div id = 'img'></div>
-        <br><br>
+        <br>
         <div id = 'form'>
             <form class = 'form'>
                 <table>
@@ -91,14 +92,14 @@
                             <label for='deer'>Deer</label>
                         </td>
                         <td>
-                        <input type = 'checkbox' class = 'check' id = 'nothing' value = 'Nothing'>
-                        <label for='nothing'>Nothing</label>
+                            <input type = 'checkbox' class = 'check' id = 'fox' value = 'Fox'>
+                            <label for='fox'>Fox</label>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type = 'checkbox' class = 'check' id = 'fox' value = 'Fox'>
-                            <label for='fox'>Fox</label>
+                            <input type = 'checkbox' class = 'check' id = 'nothing' value = 'Nothing'>
+                            <label for='nothing'>Nothing</label>
                         </td>
                         <td>
                             <input type = 'checkbox' class = 'check' id='unsure' value = 'Unsure'>

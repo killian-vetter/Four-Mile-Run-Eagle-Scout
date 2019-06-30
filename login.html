@@ -2,6 +2,7 @@
 <html>
     <head>
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <script>
             AWS.config.region = 'us-east-1'; // Region
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -41,11 +42,13 @@
         </script>
     </head>
     <body>
-        <h1>Login</h1>
+        <h1 style = "text-align: center">Welcome to Stuart Knop's Eagle Scout Project for the Four Mile Run Conservancy</h1>
+        <img src = "logos.png" alt = "logos" height = "100" class = "logos">
         <form>
-            <h3>Enter Your Name Below:</h3>
-            <input type="text" id="name" placeholder="Name">
-            <input type="button" onclick="login()" value="Submit">
+            <h3 style = "text-align: center">Enter Your Name Below:</h3>
+            <input class = "logos" type="text" id="name" placeholder="Name">
+            <br>
+            <input class = "logos" type="button" onclick="login()" value="Submit">
         </form>
     </body>
 </html>

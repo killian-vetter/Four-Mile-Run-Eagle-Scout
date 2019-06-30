@@ -1,6 +1,6 @@
 #header {
     position: fixed;
-    top: 0px;
+    top: 15px;
     right:15px;
     text-align:right;
 }
@@ -16,7 +16,12 @@ td {
     padding-top: 20px;
 }
 
-img {
+.animal {
     height: 456px;
+}
 
+.logos {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
