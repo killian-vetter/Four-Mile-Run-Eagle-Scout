@@ -23,8 +23,8 @@
                 */
                 var name = document.getElementById('name').value;
                 var params = {
-                    'FunctionName' : 'login',
-                    'name' : name
+                    FunctionName : 'login',
+                    Payload : JSON.stringify({ name : name })
                 };
                 var response = lambda.invoke(params, function(err, data) {
                     if (err) {
@@ -32,12 +32,9 @@
                         console.log(err);
                     }
                     else {
-                        window.location = "identification.html?name="+name+"&image="+data['image'];
+                        window.location = "identification.html?name="+name+"&image="+JSON.parse(data.Payload)['image'];
                     }
-                }); 
-                var image = response['image'];
-
-                window.location = "identification.html?name="+name+"&image="+image;
+                });
             }
         </script>
     </head>

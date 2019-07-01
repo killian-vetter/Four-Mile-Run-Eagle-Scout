@@ -46,11 +46,13 @@
                     }
                 }
                 var params = {
-                    'FunctionName' : 'id',
-                    'name' : name,
-                    'votes' : votes,
-                    'time' : elapsedTime,
-                    'pic' : image
+                    FunctionName : 'id',
+                    Payload : JSON.stringify({
+                        name : name,
+                        votes : votes,
+                        time : elapsedTime,
+                        pic : image
+                    })
                 };
                 /*
                 passes photo, vote, name, and time to the lambda function
@@ -62,12 +64,13 @@
                     store vote with picture
                 */
                 lambda.invoke(params, function(err, data) {
+                    console.log("identification.html?name="+name+"&image="+JSON.parse(data.Payload)['image'])
                     if (err) {
                         window.alert("An error has occured please try again");
                         console.log(error);
                     }
                     else {
-                        window.location = "identification.html?name="+name+"&image="+data['image'];
+                        window.location = "identification.html?name="+name+"&image="+JSON.parse(data.Payload)['image'];
                     }
                 }); 
             }
@@ -119,7 +122,7 @@
                     </tr>
                 </table>
                 <br>
-                <button onclick='vote()'>Submit</button>
+                <input type="button" onclick="vote()" value="Submit">
             </form>
         </div>
         <br><br><br>
