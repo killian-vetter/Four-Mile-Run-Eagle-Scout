@@ -26,6 +26,23 @@
                 document.getElementById('name').innerHTML = "Logged in as: <b>"+name+"</b>";
 
                 document.getElementById('img').innerHTML = "<img src=\"img\\"+image+"\" class = \"animal\">";
+            
+                //get time
+                var params = {
+                    FunctionName : 'getTime',
+                    Payload : JSON.stringify({
+                        name : name
+                    })
+                };
+                lambda.invoke(params, function(err, data) {
+                    if (err) {
+                        window.alert("An error has occured please try again");
+                        console.log(error);
+                    }
+                    else {
+                        document.getElementById('img').href = "thanks.html?time="+data[time];
+                    }
+                }
             }
 
             function vote() {
@@ -64,7 +81,6 @@
                     store vote with picture
                 */
                 lambda.invoke(params, function(err, data) {
-                    console.log("identification.html?name="+name+"&image="+JSON.parse(data.Payload)['image'])
                     if (err) {
                         window.alert("An error has occured please try again");
                         console.log(error);
@@ -127,7 +143,7 @@
         </div>
         <br><br><br>
         <div id='header'>
-            <a href='thanks.html'><button>I'm Done</button></a>
+            <a href='thanks.html' id='exit'><button>I'm Done</button></a>
             <p id='name'></p>
         </div>
     </body>
