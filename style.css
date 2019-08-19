@@ -25,3 +25,9 @@ td {
     margin-left: auto;
     margin-right: auto;
 }
+
+table.center {
+    margin-top: 0px;
+    margin-left:auto; 
+    margin-right:auto;
+}
