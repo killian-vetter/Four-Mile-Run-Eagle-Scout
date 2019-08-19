@@ -22,9 +22,14 @@
                     if user is not new it will retrieve the last photo they visited before they left
                 */
                 var name = document.getElementById('name').value;
+                var affilNode = document.getElementsByName('affil');
+                var affil = "";
+                for(var i = 0; i < 3; i++) {
+                    if(affilNode[i].checked) affil = affilNode[i].value;
+                }
                 var params = {
                     FunctionName : 'login',
-                    Payload : JSON.stringify({ name : name })
+                    Payload : JSON.stringify({ name : name, affiliation : affil })
                 };
                 var response = lambda.invoke(params, function(err, data) {
                     if (err) {
@@ -49,16 +54,16 @@
             <table class = "center">
                 <tr>
                     <td style="padding-top:0px">
-                        <input type="radio" id="BSA" value="BSA">
+                        <input type="radio" name="affil" id="BSA" value="BSA">
                         <label for="BSA">BSA</label>
                     </td>
                     <td style="padding-top:0px">
-                        <input type="radio" id="BSA1" value="BSA1">
-                        <label for="BSA1">BSA1</label>
+                        <input type="radio" name="affil" id="4MRC" value="4MRC">
+                        <label for="4MRC">Four Mile Run Conservancy</label>
                     </td>
                     <td style="padding-top:0px">
-                        <input type="radio" id="BSA2" value="BSA2">
-                        <label for="BSA2">BSA2</label>
+                        <input type="radio" name="affil" id="other" value="other">
+                        <label for="other">Other</label>
                     </td>
                 </tr>
             </table>

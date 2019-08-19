@@ -3,7 +3,6 @@ import os
 import re
 
 client = boto3.client('dynamodb')
-#s3client = boto3.client('s3')
 
 def lambda_handler(event, context):
     response = {}
@@ -26,10 +25,10 @@ def lambda_handler(event, context):
             'Cam' : {'N' : str(cam)}
         }
     )
-    newItem = {
-        'PicNo' : {'N' : str(picNo)},
-        'Cam' : {'N' : str(cam)}
-    }
+    newItem = picVotes
+    newItem['PicNo']['N'] = str(picNo)
+    newItem['Cam']['N'] = str(cam)
+
     for vote in event['votes']:
         try: 
             newItem[vote] = { 'N' : str(1 + int(picVotes['Item'][vote]['N'])) }
@@ -42,22 +41,13 @@ def lambda_handler(event, context):
     picNo += 1
     if (picNo > int(noPics[cam-1])):
         picNo = 1
+    item2Send = item['Item'];
+    item2Send['Minutes']['N'] = str(minutes);
+    item2Send['PicNo']['N'] = str(picNo);
+    item2Send['Cam']['N'] = str(cam);
     client.put_item(
         TableName = 'Man-Hours',
-        Item = {
-            "Name" : {
-                'S' : event['name']
-            },
-            "Minutes" : {
-                'N' : str(minutes)
-            },
-            "PicNo" : {
-                'N' : str(picNo)
-            },
-            "Cam" : {
-                'N' : str(cam)
-            }
-        }
+        Item = item2Send 
     )
     pic = str(cam) + "/" + picName(picNo, len(str(picNo)))
     response['image'] = pic

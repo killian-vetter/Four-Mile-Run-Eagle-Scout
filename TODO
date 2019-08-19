@@ -1,7 +1,5 @@
 Seperate logos and add labels (Four Mile run Conservancy and BSA Troop 1515
 
-Allow user to affiliate with BSA, Four Mile Run, or other
-
 add to title screen   Thank you for helping with my eagle project, along with helping the four mile run conservancy to better understand the breadth of wildlife that exists in the four mile run watershed and Great Hunting Creek.
         -Stuart Knops
 
@@ -13,8 +11,6 @@ Create Animal Page
 
 Have options be human, nothing, other, and small bird. along with the animals
 
-Make upload and download less destructive in Lambda
-
-Maybe add metadata to database in id.py
+Add metadata to database in id.py
 
 Update README.md

@@ -18,8 +18,7 @@ def lambda_handler(event, context):
         if(picNo > int(noPics[cam-1])):
             picNo = 1
     except:
-        cam = 1
-        #cam = random.randrange(1,3)
+        cam = random.randrange(1,3)
         picNo = random.randrange(1, int(noPics[cam-1]))
         client.put_item(
             TableName = 'Man-Hours',
@@ -35,6 +34,9 @@ def lambda_handler(event, context):
                 },
                 "PicNo" : {
                     "N" : str(picNo)
+                },
+                "Affiliation" {
+                    "S" : event['affiliation']
                 }
             }
         )
