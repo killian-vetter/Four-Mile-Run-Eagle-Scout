@@ -7,6 +7,7 @@ client = boto3.client('dynamodb')
 def lambda_handler(event, context):
     response = {}
     noPics = os.environ['NoPics'].split(",")
+    startPics = os.environ['StartPics'].split(",")
     item = client.get_item(
         TableName='Man-Hours',
         Key={
@@ -18,8 +19,8 @@ def lambda_handler(event, context):
         if(picNo > int(noPics[cam-1])):
             picNo = 1
     except:
-        cam = random.randrange(1,3)
-        picNo = random.randrange(1, int(noPics[cam-1]))
+        cam = random.randrange(1, int(os.environ['NoCams']+1))
+        picNo = random.randrange(int(startPics[cam-1]), int(noPics[cam-1]))
         client.put_item(
             TableName = 'Man-Hours',
             Item = {
