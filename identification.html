@@ -40,17 +40,27 @@
                         console.log(error);
                     }
                     else {
-                        document.getElementById('img').href = "thanks.html?time="+data[time];
+                        document.getElementById('img').href = "thanks.html?time="+JSON.parse(data.Payload)['time'];
                     }
-                }
+                });
             }
 
             function vote() {
                 voteOptions = [
-                    "deer",
-                    "fox",
-                    "nothing",
-                    "unsure"
+                    "beaver", 
+                    "deer", 
+                    "goose", 
+                    "mallard", 
+                    "great_blue_heron", 
+                    "green_heron", 
+                    "raccoon", 
+                    "red_fox", 
+                    "red_winged_blackbird", 
+                    "wood_duck",
+                    "small_bird", 
+                    "human", 
+                    "other", 
+                    "nothing"
                 ];
                 const endDate = new Date();
                 const spentTime = endDate.getTime() - startDate.getTime();
@@ -118,22 +128,68 @@
                 <table>
                     <tr>
                         <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'deer' value = 'Deer'>
+                            <input type = 'checkbox' class = 'check' id = 'beaver' value = 'beaver'>
+                            <label for='beaver'>Beaver</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'deer' value = 'deer'>
                             <label for='deer'>Deer</label>
                         </td>
                         <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'fox' value = 'Fox'>
-                            <label for='fox'>Fox</label>
+                            <input type = 'checkbox' class = 'check' id = 'goose' value = 'goose'>
+                            <label for='goose'>Goose</label>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <input type = 'checkbox' class = 'check' id = 'nothing' value = 'Nothing'>
-                            <label for='nothing'>Nothing</label>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'mallard' value = 'mallard'>
+                            <label for='mallard'>Mallard</label>
                         </td>
-                        <td>
-                            <input type = 'checkbox' class = 'check' id='unsure' value = 'Unsure'>
-                            <label for='unsure'>Unsure</label>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id='great_blue_heron' value = 'great_blue_heron'>
+                            <label for='great_blue_heron'>Great Blue Heron</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'green_heron' value = 'green_heron'>
+                            <label for='green_heron'>Green Heron</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'raccoon' value = 'raccoon'>
+                            <label for='raccoon'>Raccoon</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'red_fox' value = 'red_fox'>
+                            <label for='red_fox'>Red fox</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'red_winged_blackbird' value = 'red_winged_blackbird'>
+                            <label for='red_winged_blackbird'>Red Winged Blackbird</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'wood_duck' value = 'wood_duck'>
+                            <label for='wood_duck'>Wood Duck</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'small_bird' value = 'small_bird'>
+                            <label for='small_bird'>Small Bird</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'human' value = 'human'>
+                            <label for='human'>Human</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'other' value = 'other'>
+                            <label for='other'>Other</label>
+                        </td>
+                        <td style="padding-top:0px">
+                            <input type = 'checkbox' class = 'check' id = 'nothing' value = 'nothing'>
+                            <label for='nothing'>Nothing</label>
                         </td>
                     </tr>
                 </table>

@@ -19,16 +19,14 @@ def lambda_handler(event, context):
         return item['Item']['Cam']['N']+"/"+picName(item['Item']['PicNo']['N'],len(item['Item']['PicNo']['N']))
     cam = picInfo['cam']
     picNo = picInfo['picNo']
+    picture = event['pic']
     picVotes = client.get_item(
         TableName = 'PictureInfo',
         Key = {
-            'PicNo' : {'N' : str(picNo)},
-            'Cam' : {'N' : str(cam)}
+            'Picture' : {'S' : picture}
         }
     )
-    newItem = picVotes
-    newItem['PicNo']['N'] = str(picNo)
-    newItem['Cam']['N'] = str(cam)
+    newItem = picVotes #has to make sure thing exists TODO
 
     for vote in event['votes']:
         try: 
@@ -42,13 +40,13 @@ def lambda_handler(event, context):
     picNo += 1
     if (picNo > int(noPics[cam-1])):
         cam += 1
-        if (cam > int(os.environs['NoCams']):
+        if (cam > int(os.environ['NoCams'])):
             cam = 1
         picNo = int(startPics[cam-1])
-    item2Send = item['Item'];
-    item2Send['Minutes']['N'] = str(minutes);
-    item2Send['PicNo']['N'] = str(picNo);
-    item2Send['Cam']['N'] = str(cam);
+    item2Send = item['Item']
+    item2Send['Minutes']['N'] = str(minutes)
+    item2Send['PicNo']['N'] = str(picNo)
+    item2Send['Cam']['N'] = str(cam)
     client.put_item(
         TableName = 'Man-Hours',
         Item = item2Send 
@@ -69,7 +67,7 @@ def picName(num, length):
 def isValidPhoto(name):
     response = {}
     arr = name.split("/")
-    if len(arr) == 2 and (0<arr[0] and arr[0]<=int(os.environ['NoCams'])) and re.match("IMG_....(\.)JPG", arr[1]) is not None: 
+    if len(arr) == 2 and (0<int(arr[0]) and int(arr[0])<=int(os.environ['NoCams'])) and re.match(r'IMG_....(\.)JPG', arr[1]) is not None: 
        response['picNo'] = int(arr[1][4:8])
        response['cam'] = int(arr[0])
        return response

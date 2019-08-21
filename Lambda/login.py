@@ -16,11 +16,9 @@ def lambda_handler(event, context):
     try:
         picNo = int(item['Item']['PicNo']['N'])
         cam = int(item['Item']['Cam']['N'])
-        if(picNo > int(noPics[cam-1])):
-            picNo = 1
     except:
-        cam = random.randrange(1, int(os.environ['NoCams']+1))
-        picNo = random.randrange(int(startPics[cam-1]), int(noPics[cam-1]))
+        cam = random.randrange(1, int(os.environ['NoCams'])+1)
+        picNo = random.randrange(int(startPics[cam-1]), int(noPics[cam-1])+1)
         client.put_item(
             TableName = 'Man-Hours',
             Item = {
@@ -36,7 +34,7 @@ def lambda_handler(event, context):
                 "PicNo" : {
                     "N" : str(picNo)
                 },
-                "Affiliation" {
+                "Affiliation" : {
                     "S" : event['affiliation']
                 }
             }
