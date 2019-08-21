@@ -26,7 +26,11 @@ def lambda_handler(event, context):
             'Picture' : {'S' : picture}
         }
     )
-    newItem = picVotes #has to make sure thing exists TODO
+    
+    try :
+        newItem = picVotes['Item'] 
+    except : 
+        newItem = {'Picture' : {'S': picture}}
 
     for vote in event['votes']:
         try: 
