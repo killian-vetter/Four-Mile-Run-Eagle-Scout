@@ -66,6 +66,9 @@
                 const spentTime = endDate.getTime() - startDate.getTime();
                 elapsedTime += spentTime;
                 elapsedTime /= 1000;
+				if (elapsedTime > 180) {
+					elapsedTime = 180;
+				}
                 var votes = []; 
                 for (i = 0; i<voteOptions.length; i++){
                     if (document.getElementById(voteOptions[i]).checked) {
