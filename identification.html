@@ -41,7 +41,7 @@
                         console.log(error);
                     }
                     else {
-                        document.getElementById('img').href = "thanks.html?time="+JSON.parse(data.Payload)['time'];
+                        document.getElementById('exit').href = "thanks.html?time="+JSON.parse(data.Payload)['time'];
                     }
                 });
             }
@@ -125,7 +125,8 @@
     </head>
     <body onload="load()">
         <h1>What animal is in the picture below?</h1>
-        <h4><a href="tutorial.html">Examples of Common Animals</a></h4>
+        <p>Check all that apply. <a href="tutorial.html">Here are some examples of common animals</a></p>
+        <h4></h4>
         <div id = 'img'></div>
         <br>
         <div id = 'form'>

@@ -1,3 +1,9 @@
+'''
+Take out all the stuff with num and picname and instead choose name based on meta data
+Do all the stuff in the buffer instead of /tmp 
+create a thumbnail for the image (it will automatically load with the full loading upon request)
+'''
+
 import boto3
 
 client = boto3.client('s3')
