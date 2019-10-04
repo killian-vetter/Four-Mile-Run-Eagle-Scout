@@ -1,87 +1,104 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Login</title>
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script>
-            AWS.config.region = 'us-east-1'; // Region
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: 'us-east-1:03dd8b12-9e10-484c-83ca-bfe0d55e16c3',
-            });
-            var lambda = new AWS.Lambda({region: 'us-east-1', apiVersion: '2015-03-31'});
+<!DOCTYPE html>
+<html>
 
-            function login() {
-                /*
-                 call lambda function with a name and have it return picture
-                 use window.location to change address to add the params gotten from the lambda script
-                 
-                 lambda function: 
-                    will create space in the table for the user if they are new. 
-                    Will choose a semi-random start point and store that
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        AWS.config.region = 'us-east-1'; // Region
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'us-east-1:03dd8b12-9e10-484c-83ca-bfe0d55e16c3',
+        });
+        var lambda = new AWS.Lambda({ region: 'us-east-1', apiVersion: '2015-03-31' });
 
-                    if user is not new it will retrieve the last photo they visited before they left
-                */
-                var name = document.getElementById('name').value;
-                var affilNode = document.getElementsByName('affil');
-                var affil = "";
-                for(var i = 0; i < 3; i++) {
-                    if(affilNode[i].checked) affil = affilNode[i].value;
-                }
-                if (affil == "" || name == "") {
-                    return;
-                }
-                var params = {
-                    FunctionName : 'login',
-                    Payload : JSON.stringify({ name : name, affiliation : affil })
-                };
-                var response = lambda.invoke(params, function(err, data) {
-                    if (err) {
-                        window.alert("An error has occured please try again");
-                        console.log(err);
-                    }
-                    else {
-                        window.location = "identification.html?name="+name+"&image="+JSON.parse(data.Payload)['image'];
-                    }
-                });
+        function login() {
+            /*
+             call lambda function with a name and have it return picture
+             use window.location to change address to add the params gotten from the lambda script
+             
+             lambda function: 
+                will create space in the table for the user if they are new. 
+                Will choose a semi-random start point and store that
+
+                if user is not new it will retrieve the last photo they visited before they left
+            */
+            var name = document.getElementById('name').value;
+            var affilNode = document.getElementsByName('affil');
+            var affil = "";
+            for (var i = 0; i < 3; i++) {
+                if (affilNode[i].checked) affil = affilNode[i].value;
             }
-        </script>
-    </head>
-    <body>
-        <h1 style = "text-align: center">Welcome to Stuart Knop's Eagle Scout Project for the Four Mile Run Conservancy</h1>
-        <p style="padding-left: 10%; padding-right:10%; text-align: center">
-            Thank you for helping with my eagle project, along with helping the four mile run conservancy to better understand 
-            the breadth of wildlife that exists in the four mile run watershed and Great Hunting Creek. - Stuart Knops
-        </p>
-        <img src = "logos.png" alt = "logos" height = "100" class = "logos">
-        <form>
-            <h3 style = "text-align: center">Enter Your Name Below:</h3>
-            <input class = "logos" type="text" id="name" placeholder="Name">
-            <br />
-            <h3 style = "text-align: center">What group are you affiliated with?</h3>
-            <table class = "center">
-                <tr>
-                    <td style="padding-top:0px">
+            if (affil == "" || name == "") {
+                return;
+            }
+            var params = {
+                FunctionName: 'login',
+                Payload: JSON.stringify({ name: name, affiliation: affil })
+            };
+            var response = lambda.invoke(params, function (err, data) {
+                if (err) {
+                    window.alert("An error has occured please try again");
+                    console.log(err);
+                }
+                else {
+                    window.location = "identification.html?name=" + name + "&image=" + JSON.parse(data.Payload)['image'];
+                }
+            });
+        }
+    </script>
+</head>
+
+<body class='content'>
+    <div class='hero'>
+        <div class='container'>
+            <img src='logos.png' alt='Logos'>
+        </div>
+        <div class='container'>
+            <h1 class='title'>Welcome to Stuart Knop's Eagle Scout Project for the Four Mile Run Conservancy</h1>
+            <p class='subtitle'>
+                Thank you for helping with my eagle project, along with helping the four mile run conservancy to better
+                understand
+                the breadth of wildlife that exists in the four mile run watershed and Great Hunting Creek. - Stuart
+                Knops
+            </p>
+        </div>
+    </div>
+    <div class='section'>
+        <div class='container'>
+            <form>
+                <div class='field'>
+                    <label class='label'>Enter Your Name Below:</label>
+                    <div class='control'>
+                        <input class='input' type="text" id="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class='field'>
+                    <label class='label'>What group are you affiliated with?</label>
+                    <label class='radio'>
                         <input type="radio" name="affil" id="BSA" value="BSA">
-                        <label for="BSA">BSA</label>
-                    </td>
-                    <td style="padding-top:0px">
+                        BSA
+                    </label>
+                    <label class='radio'>
                         <input type="radio" name="affil" id="4MRC" value="4MRC">
-                        <label for="4MRC">Four Mile Run Conservancy</label>
-                    </td>
-                    <td style="padding-top:0px">
+                        Four Mile Run Conservancy
+                    </label>
+                    <label class='radio'>
                         <input type="radio" name="affil" id="other" value="other">
-                        <label for="other">Other</label>
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <input class = "logos" type="button" onclick="login()" value="Submit">
-        </form>
-        <p style="text-align: center; padding-left: 30%; padding-right:30%; font-style: italic">
-            By pressing the start button you consent to us tracking the time spent on this page. 
-            That time will be provided to you as service hours when logging off.
-        </p>
-    </body>
+                        Other
+                    </label>
+                </div>
+                <input class="button is-primary" type="button" onclick="login()" value="Submit">
+            </form>
+            <p class='help'>
+                By pressing the start button you consent to us tracking the time spent on this page.
+                That time will be provided to you as service hours when logging off.
+            </p>
+        </div>
+    </div>
+</body>
+
 </html>

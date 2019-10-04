@@ -1,11 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" >
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Identify The Animals</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
-        <script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Identify The Animals</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.476.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!--<script>
             AWS.config.region = 'us-east-1'; // Region
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId: 'us-east-1:03dd8b12-9e10-484c-83ca-bfe0d55e16c3',
@@ -121,92 +124,101 @@
 
             window.addEventListener('focus', focus);
             window.addEventListener('blur', blur);
-        </script>
-    </head>
-    <body onload="load()">
-        <h1>What animal is in the picture below?</h1>
-        <p>Check all that apply. <a href="tutorial.html">Here are some examples of common animals</a></p>
-        <h4></h4>
-        <div id = 'img'></div>
-        <br>
-        <div id = 'form'>
-            <form class = 'form'>
-                <table>
-                    <tr>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'beaver' value = 'beaver'>
-                            <label for='beaver'>Beaver</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'deer' value = 'deer'>
-                            <label for='deer'>Deer</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'goose' value = 'goose'>
-                            <label for='goose'>Goose</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'mallard' value = 'mallard'>
-                            <label for='mallard'>Mallard</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id='great_blue_heron' value = 'great_blue_heron'>
-                            <label for='great_blue_heron'>Great Blue Heron</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'green_heron' value = 'green_heron'>
-                            <label for='green_heron'>Green Heron</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'raccoon' value = 'raccoon'>
-                            <label for='raccoon'>Raccoon</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'red_fox' value = 'red_fox'>
-                            <label for='red_fox'>Red fox</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'red_winged_blackbird' value = 'red_winged_blackbird'>
-                            <label for='red_winged_blackbird'>Red Winged Blackbird</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'wood_duck' value = 'wood_duck'>
-                            <label for='wood_duck'>Wood Duck</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'small_bird' value = 'small_bird'>
-                            <label for='small_bird'>Small Bird</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'human' value = 'human'>
-                            <label for='human'>Human</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'other' value = 'other'>
-                            <label for='other'>Other</label>
-                        </td>
-                        <td style="padding-top:0px">
-                            <input type = 'checkbox' class = 'check' id = 'nothing' value = 'nothing'>
-                            <label for='nothing'>Nothing</label>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <input type="button" onclick="vote()" value="Submit">
-            </form>
+        </script>--->
+</head>
+
+<body onload="load()" class='content'>
+    <div class='hero has-background-primary'>
+        <div class='hero-body'>
+            <h1 class='title is-1'>What animal is in the picture below?</h1>
+            <p class='subtitle'>Check all that apply. <a href="tutorial.html">Here are some examples of common animals</a></p>
         </div>
-        <br><br><br>
-        <div id='header'>
-            <a href='thanks.html' id='exit'><button>I'm Done</button></a>
+    </div>
+    <div class='section'>
+        <div class='container level'>
+            <figure class='image'>
+                <img src='animals/BEAVER.jpeg'>
+            </figure>
+            <div id='form'>
+                <form class='form'>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type='checkbox' class='check' id='beaver' value='beaver'>
+                                <label for='beaver'>Beaver</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='deer' value='deer'>
+                                <label for='deer'>Deer</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='goose' value='goose'>
+                                <label for='goose'>Goose</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='checkbox' class='check' id='mallard' value='mallard'>
+                                <label for='mallard'>Mallard</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='great_blue_heron' value='great_blue_heron'>
+                                <label for='great_blue_heron'>Great Blue Heron</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='green_heron' value='green_heron'>
+                                <label for='green_heron'>Green Heron</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='checkbox' class='check' id='raccoon' value='raccoon'>
+                                <label for='raccoon'>Raccoon</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='red_fox' value='red_fox'>
+                                <label for='red_fox'>Red fox</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='red_winged_blackbird'
+                                    value='red_winged_blackbird'>
+                                <label for='red_winged_blackbird'>Red Winged Blackbird</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='checkbox' class='check' id='wood_duck' value='wood_duck'>
+                                <label for='wood_duck'>Wood Duck</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='small_bird' value='small_bird'>
+                                <label for='small_bird'>Small Bird</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='human' value='human'>
+                                <label for='human'>Human</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='checkbox' class='check' id='other' value='other'>
+                                <label for='other'>Other</label>
+                            </td>
+                            <td>
+                                <input type='checkbox' class='check' id='nothing' value='nothing'>
+                                <label for='nothing'>Nothing</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <input class='button is-primary' type="button" onclick="vote()" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div class='container'>
+            <a href='thanks.html' id='exit'><button class='button is-secondary'>I'm Done</button></a>
             <p id='name'></p>
         </div>
-    </body>
+    </div>
+</body>
 </html>
