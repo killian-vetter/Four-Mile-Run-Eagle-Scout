@@ -6,6 +6,7 @@ create a thumbnail for the image (it will automatically load with the full loadi
 
 import boto3
 from PIL import Image
+from urllib.parse import unquote_plus
 
 client = boto3.client('s3')
 
