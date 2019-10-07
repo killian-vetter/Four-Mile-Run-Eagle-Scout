@@ -29,5 +29,3 @@ def lambda_handler(event, context):
         obj.thumbnail((1280,720))
         client.put_object(Bucket='four-mile-run', Key='img/thumbnail/'+name, Body=obj)
         client.delete_object(Bucket=bucket, Key=key)
-        
-    client.download_filobj("four-mile-run", "num.txt", str(num).encode())
