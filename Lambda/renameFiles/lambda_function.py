@@ -16,13 +16,13 @@ def createName(image):
     date = exif[36867]
     comment = exif[37510]
     cam = comment[21:27]
-    return date.replace(" ","-")+can+'.JPG'
+    return cam+date.replace(" ","-")+'.JPG'
 
 def lambda_handler(event, context):
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
         key = unquote_plus(record['s3']['object']['key'])
-        obj = Image.read(client.get_record(Bucket=bucket, Key=key))
+        obj = Image.open(client.get_object(Bucket=bucket, Key=key)['Body'].read())
         # resize picture and save in two different folders img/full and img/thumbnail
         name = createName(obj)
         client.put_object(Bucket='four-mile-run', Key='img/full/'+name, Body=obj)
