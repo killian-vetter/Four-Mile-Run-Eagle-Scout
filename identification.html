@@ -93,15 +93,24 @@
                 var votes = []; 
                 for (i = 0; i<voteOptions.length; i++){
                     if (document.getElementById(voteOptions[i]).checked) {
-                        votes.push(voteOptions[i]);
+                        if (voteOptions[i] == "other") {
+                            votes.push(document.getElementById("other_blank").value)
+                        }
+                        else {
+                            votes.push(voteOptions[i]);
+                        }
                     }
                 }
+
+                amazing_photo = document.getElementByName("amazing")[0].checked;
+
                 var params = {
                     FunctionName : 'id',
                     Payload : JSON.stringify({
                         name : name,
                         votes : votes,
                         time : elapsedTime,
+                        amazing : amazing_photo,
                         pic : image
                     })
                 };
