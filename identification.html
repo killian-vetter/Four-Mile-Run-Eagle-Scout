@@ -94,7 +94,7 @@
                 for (i = 0; i<voteOptions.length; i++){
                     if (document.getElementById(voteOptions[i]).checked) {
                         if (voteOptions[i] == "other") {
-                            votes.push(document.getElementById("other_blank").value)
+                            votes.push(document.getElementById("other_blank").value);
                         }
                         else {
                             votes.push(voteOptions[i]);
@@ -102,7 +102,9 @@
                     }
                 }
 
-                amazing_photo = document.getElementByName("amazing")[0].checked;
+                if (document.getElementByName("amazing")[0].checked) {
+                    votes.push("amazing");
+                }
 
                 var params = {
                     FunctionName : 'id',
@@ -110,7 +112,6 @@
                         name : name,
                         votes : votes,
                         time : elapsedTime,
-                        amazing : amazing_photo,
                         pic : image
                     })
                 };
