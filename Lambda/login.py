@@ -1,53 +1,51 @@
 import boto3
-import os
 import random
 
+s3_client = boto3.client('s3')
 client = boto3.client('dynamodb')
 
 def lambda_handler(event, context):
     response = {}
-    noPics = os.environ['NoPics'].split(",")
-    startPics = os.environ['StartPics'].split(",")
     item = client.get_item(
         TableName='Man-Hours',
         Key={
             'Name': {'S' : event['name']}
         })
+    obj_list = {}
     try:
-        picNo = int(item['Item']['PicNo']['N'])
-        cam = int(item['Item']['Cam']['N'])
+        cont = int(item['Item']['ContToken']['S'])
+        if (cont == ''):
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+        else:
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100, ContinuationToken=cont)
     except:
-        cam = random.randrange(1, int(os.environ['NoCams'])+1)
-        picNo = random.randrange(int(startPics[cam-1]), int(noPics[cam-1])+1)
-        client.put_item(
-            TableName = 'Man-Hours',
-            Item = {
-                "Name" : {
-                    "S" : event['name']
-                },
-                "Minutes" : {
-                    "N" : "0"
-                },
-                "Cam" : {
-                    "N" : str(cam)
-                },
-                "PicNo" : {
-                    "N" : str(picNo)
-                },
-                "Affiliation" : {
-                    "S" : event['affiliation']
-                }
+        obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+    minutes = -1
+    try: 
+        minutes = item['Item']['Minutes']['N']
+    except:
+        minutes = 0
+    client.put_item(
+        TableName = 'Man-Hours',
+        Item = {
+        "Name" : {
+                "S" : event['name']
+            },
+            "Minutes" : {
+                "N" : str(minutes)
+            },
+            "ContToken" : {
+                "S" : obj_list['NextContinuationToken']
+            },
+            "Affiliation" : {
+                "S" : event['affiliation']
             }
-        )
-    finally:
-        response['image'] = str(cam) + "/" + picName(picNo, len(str(picNo)))
-        return response
-
-# creates the name of the picture given its identifying number
-def picName(num, length):
-    name = "IMG_"
-    for i in range(length, 4):
-        if (i != 4):
-            name += "0"
-    name += str(num) + ".JPG"
-    return name
+        }
+    )
+    key = random.choice(obj_list['Content'])['Key']
+    if (obj_list['IsTruncated']):
+        cont = response['NextContinuationToken']
+    else:
+        cont = ''
+    response['image'] = key[14:]
+    return response
