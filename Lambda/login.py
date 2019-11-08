@@ -13,8 +13,8 @@ def lambda_handler(event, context):
         })
     obj_list = {}
     try:
-        cont = int(item['Item']['ContToken']['S'])
-        if (cont == ''):
+        cont = item['Item']['ContToken']['S']
+        if (cont == '-'):
             obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
         else:
             obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100, ContinuationToken=cont)
@@ -25,6 +25,10 @@ def lambda_handler(event, context):
         minutes = item['Item']['Minutes']['N']
     except:
         minutes = 0
+    if (obj_list['IsTruncated']):
+        cont = obj_list['NextContinuationToken']
+    else:
+        cont = '-'
     client.put_item(
         TableName = 'Man-Hours',
         Item = {
@@ -35,17 +39,13 @@ def lambda_handler(event, context):
                 "N" : str(minutes)
             },
             "ContToken" : {
-                "S" : obj_list['NextContinuationToken']
+                "S" : cont
             },
             "Affiliation" : {
                 "S" : event['affiliation']
             }
         }
     )
-    key = random.choice(obj_list['Content'])['Key']
-    if (obj_list['IsTruncated']):
-        cont = response['NextContinuationToken']
-    else:
-        cont = ''
+    key = random.choice(obj_list['Contents'])['Key']
     response['image'] = key[14:]
     return response
