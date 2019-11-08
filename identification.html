@@ -27,7 +27,7 @@
             }
 
             function load(){
-                if (!document.getElementById('other_blank').checked) {
+                if (document.getElementById('other_blank').checked) {
                     document.getElementById('other_blank').style.display = 'block';
                 }
                 else {
@@ -37,7 +37,7 @@
                 document.getElementById('name').innerHTML = "Logged in as: <b>"+name+"</b>";
 
                 document.getElementById('img').src = "img/thumbnail/"+image;
-                document.getElementById('img_caption').href = "img/full/"+image;
+                document.getElementById('full_link').href = "img/full/"+image;
             
                 //get time
                 var params = {
@@ -166,7 +166,7 @@
     <div class='section'>
         <div class='container level'>
             <figure class='image'>
-                <img id='img' src="animals/BEAVER.jpeg">
+                <img id='img' src="">
                 <p class="help">View full photo <a id='full_link'>here</a></p>
             </figure>
             <div id='form'>
