@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Thank You!</title>
-        <script>
-            var urlParams = new URLSearchParams(location.search);
 
-            function load() {
-                if(urlParams.has('time'))
-                    document.getElementById("time").innerHTML = "You have worked for "+(urlParams.get('time'))+" minutes!";
-            }
-        </script>
-    </head>
-    <body onload="load()">
-        <h1 style = "text-align: center">Thank You for Participating!</h1>
-        <h2 style = "text-align: center" id = "time"></h2>
-        <img src = "logos.png" alt = "logos" height = "100" class = "logos">
-    </body>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Thank You!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        var urlParams = new URLSearchParams(location.search);
+
+        function load() {
+            if (urlParams.has('time'))
+                document.getElementById("time").innerHTML = "You have worked for " + (urlParams.get('time')) + " minutes!";
+        }
+    </script>
+</head>
+
+<body onload="load()" class='content'>
+    <div class='hero is-fullheight'>
+        <div class='container'>
+            <h1 class='title'>Thank You for Participating!</h1>
+            <h2 class='subtitle' id="time"></h2>
+            <img class='image' src="logos.png" alt="logos" height="100" class="logos">
+        </div>
+    </div>
+</body>
+
 </html>

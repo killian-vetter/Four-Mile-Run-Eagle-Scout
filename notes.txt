@@ -1,0 +1,13 @@
+Map of camera locations
+Tell of the story of getting cameras and such
+list_objects to choose an object
+Use framework bulma.io
+add as much info as possible to fill people in
+tutorial from homepage (also from id page)
+have more info about four mile run on homepage (link to site, map of area [maybe have position of cameras])
+get rid of name stuff
+display thumbnail and have view original
+possibly use scan() to get general info about stuff (5 foxes identied, 3 bears, etc.)
+when photo is categorized more it to a different folder
+use PIL to access picture metadata to get time, and number which can be used as the photo name
+Move file after identification
