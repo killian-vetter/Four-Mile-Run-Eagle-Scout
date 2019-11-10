@@ -41,11 +41,11 @@ def lambda_handler(event, context):
     try:
         cont = item['Item']['ContToken']['S']
         if (cont == '-'):
-            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500)
         else:
-            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100, ContinuationToken=cont)
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500, ContinuationToken=cont)
     except:
-        obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+        obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500)
     pic = random.choice(obj_list['Contents'])['Key'][14:]
     if (obj_list['IsTruncated']):
         cont = response['NextContinuationToken']

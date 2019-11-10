@@ -15,11 +15,11 @@ def lambda_handler(event, context):
     try:
         cont = item['Item']['ContToken']['S']
         if (cont == '-'):
-            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500)
         else:
-            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100, ContinuationToken=cont)
+            obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500, ContinuationToken=cont)
     except:
-        obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=100)
+        obj_list = s3_client.list_objects_v2(Bucket = 'four-mile-run', Prefix='img/thumbnail/', MaxKeys=500)
     minutes = -1
     try: 
         minutes = item['Item']['Minutes']['N']
