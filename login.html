@@ -26,6 +26,7 @@
 
                 if user is not new it will retrieve the last photo they visited before they left
             */
+            document.getElementById('submit').disabled = true;
             var name = document.getElementById('name').value;
             var affilNode = document.getElementsByName('affil');
             var affil = "";
@@ -91,7 +92,7 @@
                         Other
                     </label>
                 </div>
-                <input class="button is-primary" type="button" onclick="login()" value="Submit">
+                <input class="button is-primary" id="submit" type="button" onclick="login()" value="Submit">
             </form>
             <p class='help'>
                 By pressing the start button you consent to us tracking the time spent on this page.

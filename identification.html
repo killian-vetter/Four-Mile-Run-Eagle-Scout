@@ -68,6 +68,7 @@
             }
 
             function vote() {
+                document.getElementById('submit').disabled = true;
                 voteOptions = [
                     "beaver", 
                     "deer", 
@@ -277,7 +278,7 @@
                     <label class='radio'><input name='amazing' type='radio' class='radio' id='bad' checked>No</label>
                     <br>
                     <br>
-                    <input class='button is-primary' type="button" onclick="vote()" value="Submit">
+                    <input class='button is-primary' id='submit' type="button" onclick="vote()" value="Submit">
                 </form>
             </div>
         </div>
