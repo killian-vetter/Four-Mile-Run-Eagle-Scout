@@ -1,9 +1,3 @@
-'''
-Take out all the stuff with num and picname and instead choose name based on meta data
-Do all the stuff in the buffer instead of /tmp 
-create a thumbnail for the image (it will automatically load with the full loading upon request)
-'''
-
 import boto3
 import uuid
 from PIL import Image
@@ -15,8 +9,13 @@ def createName(image):
     #use https://www.awaresystems.be/imaging/tiff/tifftags/privateifd/exif.html
     exif = image._getexif()
     date = exif[36867]
-    comment = exif[37510]
-    cam = comment[21:27].decode("utf-8")
+    cam = ""
+    try:
+        comment = exif[37510]
+        cam = comment[21:27].decode("utf-8")
+    except:
+        cam = exif[271]+exif[272]
+
     return cam+date.replace(" ","-")+'.JPG'
 
 def lambda_handler(event, context):
