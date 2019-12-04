@@ -11,7 +11,7 @@ def lambda_handler(event, context):
         Key={
             'Name': {'S' : event['name']}
         })
-    minutes = round(float(item['Item']['Minutes']['N'])/60 + event['time'], 2)
+    minutes = round(float(item['Item']['Minutes']['N']) + event['time']/60, 2)
     picture = event['pic']
     picVotes = client.get_item(
         TableName = 'PictureInfo',
